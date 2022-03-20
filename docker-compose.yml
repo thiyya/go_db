@@ -20,6 +20,22 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
+  postgre_db:
+    container_name: "postgre_db_container"
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: postgresql.Dockerfile
+    networks:
+      - default
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
   api:
     container_name:  "test_api"
     build:
@@ -29,6 +45,7 @@ services:
       - "8080:8080"
     depends_on:
       - mysql_db
+      - postgre_db
     volumes:
       - .:/app/
 
@@ -36,3 +53,4 @@ networks:
   default:
 volumes:
   mysql_data:
+  postgresql_data:

@@ -4,7 +4,7 @@ Multi DB golang service
 
 Mysql OK 
 
-PostgreSql - 
+PostgreSql OK
 
 MongoDB - 
 
